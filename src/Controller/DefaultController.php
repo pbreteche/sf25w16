@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/{name}',
+        name: 'app_default_index', // 2 écoles : si explicite, attention aux collisions de nommage
         requirements: ['name' => '[[:alpha:]]+'],
         defaults: ['name' => 'world'],
         methods: 'GET',
