@@ -15,4 +15,10 @@ class DefaultController extends AbstractController
     {
         return new Response('<html lang="en"><body><h1>Hello !</h1></body></html>');
     }
+
+    #[Route('/{name}')]
+    public function withName(string $name): Response
+    {
+        return new Response("<html lang=\"en\"><body><h1>Hello $name!</h1></body></html>");
+    }
 }
