@@ -14,7 +14,10 @@ class DefaultController extends AbstractController
         name: 'app_default_index', // 2 écoles : si explicite, attention aux collisions de nommage
         requirements: ['name' => '[[:alpha:]]+'],
         defaults: ['name' => 'world'],
+        host: 'localhost',
         methods: 'GET',
+        schemes: 'https',
+        priority: 1245, // définit l'ordre dans lequel les routes sont testées
     )]
     public function index(string $name): Response
     {
