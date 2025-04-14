@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{# Permet de récupérer une structure de "base" et de remplir les emplacements à disposition #}
+{# Dès l'instant qu'on étend un autre template, il n'est plus permis d'écrire que dans des blocks #}
+{# Seul le template "racine" peut écrire au niveau global #}
+
+{% block body %}
+    <h1>Page rendue avec Twig !</h1>
+    <p>Test XSS (échappement par défaut) = {{ xss }}</p>
+    <p>Test XSS (filtre "raw") = {{ xss | raw }}</p>
+    <p>{{ 'now' | date('Y-m-d') }}</p>
+{% endblock %}
+
+{% block no_existing %}
+<h1>Celui-ci sera ignoré, car block inexistant dans le parent</h1>
+{% endblock %}

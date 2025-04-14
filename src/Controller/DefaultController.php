@@ -63,4 +63,21 @@ class DefaultController extends AbstractController
 
         return $response;
     }
+
+    #[Route('/twig')]
+    public function twig(): Response
+    {
+        // Raccourcis effectuant :
+        // Accès au moteur de rendu
+        // chargement et rendu du fichier "template"
+        // Création d'un objet Response pour embarquer le contenu
+
+        // Convention de nommage :
+        // _contrôleur_/_methode_._format_.twig
+        $xss = '<script>console.log(\'XSS!\')</script>';
+
+        return $this->render('default/twig.html.twig', [
+            'xss' => $xss,
+        ]);
+    }
 }
