@@ -8,8 +8,23 @@
     <p>Test XSS (échappement par défaut) = {{ xss }}</p>
     <p>Test XSS (filtre "raw") = {{ xss | raw }}</p>
     <p>{{ 'now' | date('Y-m-d') }}</p>
-{% endblock %}
 
-{% block no_existing %}
-<h1>Celui-ci sera ignoré, car block inexistant dans le parent</h1>
+    {% if true is not same as false and ('a'..'f') | length < 15 %}
+        {# "is" déclenche l'execution d'un test #}
+        {# "same as" remplace le "===" #}
+        {# not, and, or : opérateurs booléens #}
+        {# ".." : définition d'une séquence #}
+        <p>C'est différent</p>
+    {% elseif 'abcdef'[1:2] == 'bc' %}
+        <p>C'est pareil</p>
+    {% else %}
+        <p>C'est proche</p>
+    {% endif %}
+
+    {% for number in (1..20) | filter(n => n is odd) %}
+        <p style="color: {{ loop.first ? 'red' : 'blue' }}">number : {{ number }} ({{ loop.index }})</p>
+    {% else %}
+        <p>La liste est vide.</p>
+    {% endfor %}
+
 {% endblock %}
