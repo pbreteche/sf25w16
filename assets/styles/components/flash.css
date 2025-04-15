@@ -1,0 +1,11 @@
+.flash {
+    padding: .5em 1em;
+    border: 1px solid black;
+    border-radius: .25em;
+}
+
+.flash-success {
+    color: #0b2e13;
+    border-color: #0b2e13;
+    background-color: #2dcc4f;
+}
