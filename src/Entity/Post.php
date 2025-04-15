@@ -18,7 +18,7 @@ class Post
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    #[Assert\Regex('/^[A-Z\u00C0-\u00DC]/', message: 'Le titre doit commencer par une majuscule')]
+    #[Assert\Regex('/^\p{Lu}/u', message: 'Le titre doit commencer par une majuscule')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
