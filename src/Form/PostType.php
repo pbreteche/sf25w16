@@ -15,7 +15,7 @@ class PostType extends AbstractType
 
         $builder
             ->add('title', options: [
-                'disabled' => 'new' !== $options['action'],
+                'disabled' => 'new' !== $options['controller_action'],
             ])
             ->add('body', options: $textareaOptions)
         ;
@@ -26,8 +26,8 @@ class PostType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Post::class,
             'textarea_rows' => null,
-            'action' => 'new',
+            'controller_action' => 'new',
         ])->setAllowedTypes('textarea_rows', ['null', 'integer'])
-        ->setAllowedValues('action', ['new', 'edit']);
+        ->setAllowedValues('controller_action', ['new', 'edit']);
     }
 }

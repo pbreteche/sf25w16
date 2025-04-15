@@ -69,7 +69,7 @@ class PostController extends AbstractController
     ): Response {
         $form = $this->createForm(PostType::class, $post, [
             'textarea_rows' => 10,
-            'action' => 'edit',
+            'controller_action' => 'edit',
         ]);
         $form->handleRequest($request);
 
