@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,11 +41,7 @@ class PostController extends AbstractController
         EntityManagerInterface $manager,
     ): Response {
         $post = new Post();
-        $form = $this->createFormBuilder($post)
-            ->add('title') // Le form builder configure automatiquement les champs
-            ->add('body')  // en fonction de ce qu'il connait de l'objet métier
-            ->getForm()
-        ;
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         // En réalité, c'est l'objet du modèle (embarqué par le formulaire)
         // qui sera validé
@@ -70,11 +67,10 @@ class PostController extends AbstractController
         Request $request,
         EntityManagerInterface $manager,
     ): Response {
-        $form = $this->createFormBuilder($post)
-            ->add('title')
-            ->add('body')
-            ->getForm()
-        ;
+        $form = $this->createForm(PostType::class, $post, [
+            'textarea_rows' => 10,
+            'action' => 'edit',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
