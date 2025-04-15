@@ -2,10 +2,13 @@
 
 {% block body %}
     <h1>Liste des articles</h1>
+    <nav>
+        <a href="{{ path('app_post_new') }}">Ajouter</a>
+    </nav>
     {% if posts is empty %}
         <p>
             Welcome ! Commencez par écrire votre première publication.
-            <br><a href="#">Rédiger</a>
+            <br><a href="{{ path('app_post_new') }}">Rédiger</a>
         </p>
     {% else %}
         <ul>

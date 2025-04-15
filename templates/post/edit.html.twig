@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {# {{ form(form) }} Afficherai tout le formulaire en une seule action, mais il nous manquerait le bouton#}
-
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {{ form_widget(form) }}
-    <button class="btn btn-primary">Publier</button>
+    <button>Mettre à jour</button>
     {{ form_end(form) }}
 {% endblock %}
 

@@ -2,7 +2,10 @@
 
 {% block body %}
     <h1>{{ post.title }}</h1>
-    <p class="post-authoring">Créé le {{ post.createdAt | date }}</p>
+    <p class="post-authoring">
+        Créé le {{ post.createdAt | date }}
+        <br><a href="{{ path('app_post_edit', {id: post.id}) }}">Mettre à jour</a>
+    </p>
     <div class="post-body">
         {{ post.body | raw }}
     </div>
