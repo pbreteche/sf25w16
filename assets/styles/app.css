@@ -1,3 +1,34 @@
+:root {
+    --dark-color: #123;
+    --dark-color-lighter: #456;
+    --bright-color: #fed;
+    --bright-color-darker: #987;
+}
+
+html {
+    font-size: 24px;
+}
+
 body {
-    background-color: skyblue;
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: var(--bright-color);
+    font: var(--dark-color) "DejaVu Sans Light", sans-serif;
+}
+
+a {
+    color: var(--dark-color-lighter);
+}
+
+.reverse {
+    background-color: var(--dark-color);
+    color: var(--bright-color);
+}
+
+.reverse a {
+    color: var(--bright-color-darker);
+}
+
+header, main {
+    padding: .5em 1em;
 }
