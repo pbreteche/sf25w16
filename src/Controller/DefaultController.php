@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/getting-started')]
 class DefaultController extends AbstractController
 {
     #[Route('/{name}',
