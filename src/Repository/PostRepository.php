@@ -15,4 +15,25 @@ class PostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Post::class);
     }
+
+    /**
+     * @return Post[]
+     */
+    public function findByMonth(\DateTimeImmutable $month, int $limit = 10): array
+    {
+        if (0 > $limit) {
+            throw new \InvalidArgumentException('Limit must be a positive integer');
+        }
+
+        // Puisque le QueryBuilder est créé à partir du dépôt centré sur l'entité "Post",
+        // il est préconfiguré pour faire un "SELECT", et le "FROM" est paramétré sur l'entité en question
+        return $this->createQueryBuilder('post')
+            ->andWhere('post.createdAt >= :from')
+            ->andWhere('post.createdAt < :to')
+            ->setMaxResults($limit)
+            ->getQuery() // On a fini de construire la requête
+            ->setParameter('from', $month->modify('first day of this month midnight'))
+            ->setParameter('to', $month->modify('first day of next month midnight'))
+            ->getResult(); // Par défaut, le type d'hydratation du résultat est des instances de l'entité Post
+    }
 }
