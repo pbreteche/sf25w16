@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use App\Validator\PlainText;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -23,6 +24,7 @@ class Post
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
+    #[PlainText]
     private ?string $body = null;
 
     #[ORM\Column]
