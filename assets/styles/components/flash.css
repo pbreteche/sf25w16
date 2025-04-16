@@ -9,3 +9,9 @@
     border-color: #0b2e13;
     background-color: #2dcc4f;
 }
+
+.flash-error {
+    color: #721c24;
+    border-color: #721c24;
+    background-color: #fd9ba4;
+}

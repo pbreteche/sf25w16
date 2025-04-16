@@ -2,25 +2,45 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 class PostController extends AbstractController
 {
     #[Route('/', methods: 'GET')]
-    public function index(PostRepository $postRepository): Response
-    {
-        // $posts = $postRepository->findAll();
-        $posts = $postRepository->findBy([], orderBy: ['createdAt' => 'DESC'], limit: 10);
+    public function index(
+        #[MapQueryParameter(name: 'cat', filter: \FILTER_VALIDATE_INT)]
+        ?int $categoryId,
+        PostRepository $postRepository,
+        CategoryRepository $categoryRepository,
+    ): Response {
+        $criteria = [];
+        if ($categoryId) {
+            $category = $categoryRepository->find($categoryId);
+            if (!$category) {
+                $this->addFlash('error', 'Catégorie introuvable');
+
+                return $this->redirectToRoute('app_post_index');
+            }
+            $criteria['category'] = $category;
+        }
+        // La méthode findBy permet de définir des critères de filtre sur les propriétés de l'entité Post
+        // On filtre ici avec une *instance* de catégorie (l'id ne suffit pas)
+        $posts = $postRepository->findBy($criteria, orderBy: ['createdAt' => 'DESC'], limit: 10);
+        $categories = $categoryRepository->findAll();
 
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
+            'categories' => $categories,
         ]);
     }
 

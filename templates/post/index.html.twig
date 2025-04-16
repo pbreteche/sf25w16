@@ -3,7 +3,20 @@
 {% block body %}
     <h1>Liste des articles</h1>
     <nav>
-        <a href="{{ path('app_post_new') }}">Ajouter</a>
+        <div>
+            <a href="{{ path('app_post_new') }}">Ajouter</a>
+        </div>
+        <div>
+            <a href="{{ path('app_post_index') }}">Tous</a>
+            {% for category in categories %}
+                {#
+                    Ajout d'un paramètre "cat" pour la catégorie
+                    Ce paramètre n'est pas déclaré dans le chemin de la route
+                    Il est alors ajouté à la query string
+                #}
+                <a href="{{ path('app_post_index', {cat: category.id}) }}">{{ category.name }}</a>
+            {% endfor %}
+        </div>
     </nav>
     {% if posts is empty %}
         <p>
