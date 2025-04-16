@@ -17,6 +17,10 @@ class PostType extends AbstractType
             ->add('title', options: [
                 'disabled' => 'new' !== $options['controller_action'],
             ])
+            ->add('category', options: [
+                'choice_label' => 'toLabel', // Possibilité de faire référence à une propriété ou une méthode
+                // 'choice_label' => fn (Category $c) => $c->getName(), ou encore d'utiliser une Lambda
+            ])
             ->add('body', options: $textareaOptions)
         ;
     }

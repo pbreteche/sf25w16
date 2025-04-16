@@ -32,4 +32,9 @@ class Category
 
         return $this;
     }
+
+    public function toLabel(): string
+    {
+        return (string) $this->name;
+    }
 }
