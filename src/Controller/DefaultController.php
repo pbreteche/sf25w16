@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Validator\WorkingDay;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/getting-started')]
 class DefaultController extends AbstractController
@@ -80,5 +83,18 @@ class DefaultController extends AbstractController
         return $this->render('default/twig.html.twig', [
             'xss' => $xss,
         ]);
+    }
+
+    #[NoReturn]
+    #[Route('/test-validator')]
+    public function testWorkingDayValidator(
+        ValidatorInterface $validator,
+    ): Response {
+        $workingDate = new \DateTimeImmutable('2025-04-18');
+        $holidayDate = new \DateTimeImmutable('2025-04-19');
+        $violationList1 = $validator->validate($workingDate, new WorkingDay(mode: WorkingDay::MODE_HOLIDAY));
+        $violationList2 = $validator->validate($holidayDate, new WorkingDay(mode: WorkingDay::MODE_WORKING));
+
+        dd($violationList1, $violationList2);
     }
 }
