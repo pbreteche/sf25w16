@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,6 +55,27 @@ class PostRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->setParameter('from', $month->modify('first day of this month midnight'))
             ->setParameter('to', $month->modify('first day of next month midnight'))
+            ->getResult();
+    }
+
+    public function findHavingTag(array $tagIds)
+    {
+        $qb = $this->createQueryBuilder('post');
+        $filters = [];
+        for ($i = 0; $i < count($tagIds); ++$i) {
+            $filters[] = "?$i MEMBER OF post.tags";
+        }
+        $qb->andWhere(
+            $qb->expr()->orX(
+                ...$filters
+            )
+        );
+
+        for ($i = 0; $i < count($tagIds); ++$i) {
+            $qb->setParameter($i, (int) $tagIds[$i]);
+        }
+        return $qb
+            ->getQuery()
             ->getResult();
     }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Form\PostType;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
+use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,8 +21,10 @@ class PostController extends AbstractController
     public function index(
         #[MapQueryParameter(name: 'cat', filter: \FILTER_VALIDATE_INT)]
         ?int $categoryId,
+        Request $request,
         PostRepository $postRepository,
         CategoryRepository $categoryRepository,
+        TagRepository $tagRepository,
     ): Response {
         $criteria = [];
         if ($categoryId) {
@@ -33,14 +36,19 @@ class PostController extends AbstractController
             }
             $criteria['category'] = $category;
         }
-        // La méthode findBy permet de définir des critères de filtre sur les propriétés de l'entité Post
-        // On filtre ici avec une *instance* de catégorie (l'id ne suffit pas)
-        $posts = $postRepository->findBy($criteria, orderBy: ['createdAt' => 'DESC'], limit: 10);
-        $categories = $categoryRepository->findAll();
+        $tagIds = $request->query->all('tag-choice');
+        if (!empty($tagIds)) {
+            $posts = $postRepository->findHavingTag($tagIds);
+        } else {
+            // La méthode findBy permet de définir des critères de filtre sur les propriétés de l'entité Post
+            // On filtre ici avec une *instance* de catégorie (l'id ne suffit pas)
+            $posts = $postRepository->findBy($criteria, orderBy: ['createdAt' => 'DESC'], limit: 10);
+        }
 
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
-            'categories' => $categories,
+            'categories' => $categoryRepository->findAll(),
+            'tags' => $tagRepository->findAll(),
         ]);
     }
 

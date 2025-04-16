@@ -24,6 +24,9 @@ class PostType extends AbstractType
             ->add('tags', options: [
                 'choice_label' => 'name',
                 'expanded' => true,
+                'choice_attr' => [
+                    'class' => 'form-check-inline',
+                ]
             ])
             ->add('body', options: $textareaOptions)
         ;
