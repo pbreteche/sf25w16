@@ -36,4 +36,24 @@ class PostRepository extends ServiceEntityRepository
             ->setParameter('to', $month->modify('first day of next month midnight'))
             ->getResult(); // Par défaut, le type d'hydratation du résultat est des instances de l'entité Post
     }
+
+    /**
+     * @return Post[]
+     */
+    public function findByMonthDql(\DateTimeImmutable $month, int $limit = 10): array
+    {
+        if (0 > $limit) {
+            throw new \InvalidArgumentException('Limit must be a positive integer');
+        }
+
+        return $this->getEntityManager()->createQuery(
+            'SELECT post FROM '.Post::class.' post '
+            .' WHERE post.createdAt >= :from'
+            .' AND post.createdAt < :to'
+        )
+            ->setMaxResults($limit)
+            ->setParameter('from', $month->modify('first day of this month midnight'))
+            ->setParameter('to', $month->modify('first day of next month midnight'))
+            ->getResult();
+    }
 }

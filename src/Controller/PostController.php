@@ -50,7 +50,7 @@ class PostController extends AbstractController
         ?\DateTimeImmutable $month = null,
     ): Response {
         $month ??= new \DateTimeImmutable();
-        $posts = $postRepository->findByMonth($month);
+        $posts = $postRepository->findByMonthDql($month);
 
         return $this->render('post/index_by_month.html.twig', [
             'month' => $month,
