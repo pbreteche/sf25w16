@@ -21,6 +21,10 @@ class PostType extends AbstractType
                 'choice_label' => 'toLabel', // Possibilité de faire référence à une propriété ou une méthode
                 // 'choice_label' => fn (Category $c) => $c->getName(), ou encore d'utiliser une Lambda
             ])
+            ->add('tags', options: [
+                'choice_label' => 'name',
+                'expanded' => true,
+            ])
             ->add('body', options: $textareaOptions)
         ;
     }

@@ -27,7 +27,12 @@
     {% else %}
         <ul>
         {% for post in posts %}
-            <li><a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a></li>
+            <li>
+                <a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a>
+                {% for tag in post.tags %}
+                    <span class="badge text-bg-secondary rounded-pill">{{ tag.name }}</span>
+                {% endfor %}
+            </li>
         {% endfor %}
         </ul>
     {% endif %}
