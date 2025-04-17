@@ -4,7 +4,7 @@
     <h1>Liste des articles</h1>
     <nav>
         <div>
-            <a href="{{ path('app_post_new') }}">Ajouter</a>
+            <a href="{{ path('app_author_post_new') }}">Ajouter</a>
             <a href="{{ path('app_post_indexbymonth') }}">Navigation par mois</a>
         </div>
         <div>
@@ -22,7 +22,7 @@
     {% if posts is empty %}
         <p>
             Welcome ! Commencez par écrire votre première publication.
-            <br><a href="{{ path('app_post_new') }}">Rédiger</a>
+            <br><a href="{{ path('app_author_post_new') }}">Rédiger</a>
         </p>
     {% else %}
         <form>
