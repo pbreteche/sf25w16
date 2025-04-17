@@ -7,6 +7,7 @@ use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -56,7 +57,7 @@ class PostController extends AbstractController
     #[Route('/edit/{id}', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
     // Il est possible de faire référence pour le sujet du vote
     // à tout attribut de la route, inclus les arguments déduits (comme MapEntity).
-    #[IsGranted('IS_AUTHOR', 'post')]
+    #[IsGranted(new Expression('is_granted("ROLE_AUTHOR") or is_granted("IS_AUTHOR", object)'), 'post')]
     public function edit(
         Post $post,
         Request $request,
