@@ -1,0 +1,25 @@
+global:
+  homepage: Accueil
+  getting_started: Welcome ! Commencez par écrire votre première publication.
+
+  action:
+    login: Se connecter
+    logout: Se déconnecter
+    filter: Filtrer
+
+post:
+  title:
+    index: Liste des publications
+    index_by_month: Publications du mois de %month_name%
+  action:
+    new: Nouvelle publication
+    edit: Modifier
+    browse_by_month: Navigation par mois
+  flash:
+    success:
+      new: Votre publication a bien été enregistrée.
+
+category:
+  flash:
+    error:
+      not_found: Catégorie "%id%" introuvable

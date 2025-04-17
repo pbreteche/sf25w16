@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Articles du mois de {{ month | date('F Y') }}</h1>
+    {% set month_name = month | date('F Y') %}
+    <h1>{{ 'post.title.index_by_month' | trans({'%month_name%': month_name}) }}</h1>
     <nav>
         <a href="{{ path('app_post_indexbymonth', {month: month.modify('-1 month') | date('Y-m')}) }}">Préc</a>
         <a href="{{ path('app_post_indexbymonth', {month: month.modify('+1 month') | date('Y-m')}) }}">Suiv</a>

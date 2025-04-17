@@ -45,7 +45,7 @@ class PostController extends AbstractController
             $manager->persist($post); // signale le nouvel objet comme devant être enregistré
             $manager->flush(); // Effectue l'ensemble des opérations d'écriture en attente
             // enregistre un message en session qui sera effacé dès le premier accès
-            $this->addFlash('success', 'Votre publication a bien été enregistrée.');
+            $this->addFlash('success', 'post.flash.success.new');
 
             return $this->redirectToRoute('app_post_show', ['id' => $post->getId()], Response::HTTP_SEE_OTHER);
         }

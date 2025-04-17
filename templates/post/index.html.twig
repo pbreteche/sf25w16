@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Liste des articles</h1>
+    <h1>{{ 'post.title.index' | trans }}</h1>
     <nav>
         <div>
-            <a href="{{ path('app_author_post_new') }}">Ajouter</a>
-            <a href="{{ path('app_post_indexbymonth') }}">Navigation par mois</a>
+            <a href="{{ path('app_author_post_new') }}">{{ 'post.action.new' | trans }}</a>
+            <a href="{{ path('app_post_indexbymonth') }}">{{ 'post.action.browse_by_month' | trans }}</a>
         </div>
         <div>
-            <a href="{{ path('app_post_index') }}">Tous</a>
+            <a href="{{ path('app_post_index') }}">{{ 'global.homepage' | trans }}</a>
             {% for category in categories %}
                 {#
                     Ajout d'un paramètre "cat" pour la catégorie
@@ -21,8 +21,8 @@
     </nav>
     {% if posts is empty %}
         <p>
-            Welcome ! Commencez par écrire votre première publication.
-            <br><a href="{{ path('app_author_post_new') }}">Rédiger</a>
+            {{ 'global.getting_started' | trans }}
+            <br><a href="{{ path('app_author_post_new') }}">{{ 'post.action.new' | trans }}</a>
         </p>
     {% else %}
         <form>
@@ -32,7 +32,7 @@
                 <label class="form-check-label" for="tag-choice-{{ loop.index }}">{{ tag.name }}</label>
             </div>
             {% endfor %}
-            <button class="btn btn-primary">Filtrer</button>
+            <button class="btn btn-primary">{{ 'global.action.filter' | trans }}</button>
         </form>
         <ul>
         {% for post in posts %}

@@ -1,0 +1,11 @@
+global:
+  homepage: Home
+  getting_started: Welcome! Start by writing your first post.
+
+post:
+  title:
+    index: Posts list
+  action:
+    new: New post
+    edit: Edit
+    browse_by_month: Browse by month

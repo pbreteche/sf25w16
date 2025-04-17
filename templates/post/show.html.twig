@@ -4,7 +4,7 @@
     <h1>{{ post.title }}</h1>
     <p class="post-authoring">
         Créé le {{ post.createdAt | date }} par {{ post.author.username }} ({{ post.category.name | default('sans catégorie') }})
-        <br><a href="{{ path('app_author_post_edit', {id: post.id}) }}">Mettre à jour</a>
+        <br><a href="{{ path('app_author_post_edit', {id: post.id}) }}">{{ 'post.action.edit' | trans }}</a>
     </p>
     <div class="post-body">
         {{ post.body | raw }}

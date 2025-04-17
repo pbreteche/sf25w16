@@ -23,9 +23,9 @@
             {% block header %}
                 <a href="{{ path('app_post_index') }}">Formation Symfony</a>
                 {% if app.user %}
-                <a href="{{ path('app_security_logout') }}">Se déconnecter</a>
+                <a href="{{ path('app_security_logout') }}">{{ 'global.action.logout' | trans }}</a>
                 {% else %}
-                <a href="{{ path('app_security_login') }}">Se connecter</a>
+                <a href="{{ path('app_security_login') }}">{{ 'global.action.login' | trans }}</a>
                 {% endif %}
             {% endblock %}
         </header>
@@ -34,7 +34,7 @@
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class=" flash flash-{{ label }}">
-                        {{ message }}
+                        {{ message | trans }}
                     </div>
                 {% endfor %}
             {% endfor %}

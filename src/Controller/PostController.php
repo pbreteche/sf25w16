@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use function Symfony\Component\Translation\t;
 
 class PostController extends AbstractController
 {
@@ -27,7 +28,7 @@ class PostController extends AbstractController
         if ($categoryId) {
             $category = $categoryRepository->find($categoryId);
             if (!$category) {
-                $this->addFlash('error', 'Catégorie introuvable');
+                $this->addFlash('error', t('category.flash.error.not_found', ['%id%' => $categoryId]));
 
                 return $this->redirectToRoute('app_post_index');
             }
