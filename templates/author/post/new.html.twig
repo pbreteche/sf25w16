@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if is_granted('ROLE_AUTHOR') %}
+        <p>Vous avez le role "author"</p>
+    {% endif %}
+
     {{ include('author/post/_form.html.twig', {submit_action: 'Publier'}) }}
 {% endblock %}

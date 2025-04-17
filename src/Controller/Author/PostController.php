@@ -6,18 +6,32 @@ use App\Entity\Post;
 use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/redac', methods: 'GET')]
 class PostController extends AbstractController
 {
     #[Route('/new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_AUTHOR')]
     public function new(
         Request $request,
         EntityManagerInterface $manager,
+        Security $security
     ): Response {
+        // Raccourcis disponibles depuis les contrôleurs
+        $this->denyAccessUnlessGranted('ROLE_AUTHOR');
+        if (!$this->isGranted('ROLE_AUTHOR')) {
+            throw $this->createAccessDeniedException();
+        }
+        // Possibilité de récupérer le service Security depuis n'importe quel autre service
+        if (!$security->isGranted('ROLE_AUTHOR')) {
+            throw new AccessDeniedException();
+        }
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
