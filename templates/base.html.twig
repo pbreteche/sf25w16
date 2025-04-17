@@ -22,6 +22,11 @@
         <header class="reverse">
             {% block header %}
                 <a href="{{ path('app_post_index') }}">Formation Symfony</a>
+                {% if app.user %}
+                <a href="{{ path('app_security_logout') }}">Se déconnecter</a>
+                {% else %}
+                <a href="{{ path('app_security_login') }}">Se connecter</a>
+                {% endif %}
             {% endblock %}
         </header>
         <main>
