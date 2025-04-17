@@ -54,6 +54,9 @@ class PostController extends AbstractController
     }
 
     #[Route('/edit/{id}', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'])]
+    // Il est possible de faire référence pour le sujet du vote
+    // à tout attribut de la route, inclus les arguments déduits (comme MapEntity).
+    #[IsGranted('IS_AUTHOR', 'post')]
     public function edit(
         Post $post,
         Request $request,
