@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/redac', methods: 'GET')]
+#[Route('/redac')]
 class PostController extends AbstractController
 {
     #[Route('/new', methods: ['GET', 'POST'])]
@@ -41,6 +41,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Définition des données automatiques
             $post->setCreatedAt(new \DateTimeImmutable());
+            $post->setAuthor($this->getUser());
             $manager->persist($post); // signale le nouvel objet comme devant être enregistré
             $manager->flush(); // Effectue l'ensemble des opérations d'écriture en attente
             // enregistre un message en session qui sera effacé dès le premier accès
