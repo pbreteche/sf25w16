@@ -7,6 +7,11 @@
         <a href="{{ path('app_post_indexbymonth', {month: month.modify('-1 month') | date('Y-m')}) }}">Préc</a>
         <a href="{{ path('app_post_indexbymonth', {month: month.modify('+1 month') | date('Y-m')}) }}">Suiv</a>
     </nav>
+    {% if month is working day %}
+        <p>Jour travaillé</p>
+    {% else %}
+        <p>Jour chômé</p>
+    {% endif %}
     {% if posts is empty %}
         <p>
             Pas de publication ce mois-ci.
