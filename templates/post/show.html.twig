@@ -3,7 +3,8 @@
 {% block body %}
     <h1>{{ post.title }}</h1>
     <p class="post-authoring">
-        Créé le {{ post.createdAt | date }} par {{ post.author.username }} ({{ post.category.name | default('sans catégorie') }})
+        {{ 'post.authoring' | trans({created_at: post.createdAt, author_name: post.author.username}) }}
+        ({{ post.category.name | default('sans catégorie') }})
         <br><a href="{{ path('app_author_post_edit', {id: post.id}) }}">{{ 'post.action.edit' | trans }}</a>
     </p>
     <p>{{ 'demo.select' | trans({'organizer_gender': 'female', 'organizer_name': 'John'}) }}</p>
