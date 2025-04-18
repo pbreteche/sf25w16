@@ -9,6 +9,7 @@ use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use function Symfony\Component\Translation\t;
@@ -16,6 +17,7 @@ use function Symfony\Component\Translation\t;
 class PostController extends AbstractController
 {
     #[Route('/', methods: 'GET')]
+    #[Cache(maxage: 3600, public: true)]
     public function index(
         #[MapQueryParameter(name: 'cat', filter: \FILTER_VALIDATE_INT)]
         ?int $categoryId,
