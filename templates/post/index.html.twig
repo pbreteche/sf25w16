@@ -34,6 +34,7 @@
             {% endfor %}
             <button class="btn btn-primary">{{ 'global.action.filter' | trans }}</button>
         </form>
+        <p>{{ 'demo.plural' | trans({posts: (posts | length)}) }}</p>
         <ul>
         {% for post in posts %}
             <li>

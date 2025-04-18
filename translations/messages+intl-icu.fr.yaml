@@ -32,3 +32,9 @@ demo:
       multiple {{organizer_name} have invited you to their party!}
       other    {{organizer_name} has invited you to their party!}
     }
+  plural: >-
+    {posts, plural,
+      =0      {Pas de publication pour le moment}
+      =1      {Une seule publication pour le moment}  
+      other   {# publications pour le moment}
+    }
