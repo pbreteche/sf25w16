@@ -22,3 +22,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Configuration manuelle, en général, c'est non-nécessaire
+    # La clé de premier niveau sert d'identifiant du service
+    # Si l'identifiant est le FQCN (nom de classe pleinement qualifié)
+    # Une partie de la configuration possible sera déjà géré automatiquement
+    # La déclaration explicite sert par exemple pour définir un passage de paramètre
+    # qui n'est pas un autre service
+    App\Service\Calendar:
+        class: App\Service\Calendar
+        arguments:
+            $country: '%env(APP_COUNTRY)%'

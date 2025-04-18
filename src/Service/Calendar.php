@@ -7,6 +7,9 @@ namespace App\Service;
 // Pour cette raison, le service doit être "sans-état" (stateless).
 class Calendar
 {
+    public function __construct(private string $country = 'FR')
+    {
+    }
     public function isWorkingDay(\DateTimeInterface $date): bool
     {
         return $date->format('N') < 6;
