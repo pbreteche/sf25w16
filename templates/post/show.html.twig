@@ -4,6 +4,8 @@
     <h1>{{ post.title }}</h1>
     <p class="post-authoring">
         {{ 'post.authoring' | trans({created_at: post.createdAt, author_name: post.author.username}) }}
+        {{ post.createdAt | format_date('short') }}
+        {{ 12345.67 | format_currency('EUR') }}
         ({{ post.category.name | default('sans catégorie') }})
         <br><a href="{{ path('app_author_post_edit', {id: post.id}) }}">{{ 'post.action.edit' | trans }}</a>
     </p>
