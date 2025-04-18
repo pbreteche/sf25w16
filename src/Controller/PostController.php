@@ -28,7 +28,7 @@ class PostController extends AbstractController
         if ($categoryId) {
             $category = $categoryRepository->find($categoryId);
             if (!$category) {
-                $this->addFlash('error', t('category.flash.error.not_found', ['%id%' => $categoryId]));
+                $this->addFlash('error', t('category.flash.error.not_found', ['id' => $categoryId]));
 
                 return $this->redirectToRoute('app_post_index');
             }

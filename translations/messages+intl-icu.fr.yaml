@@ -10,7 +10,7 @@ global:
 post:
   title:
     index: Liste des publications
-    index_by_month: Publications du mois de %month_name%
+    index_by_month: Publications du mois de {month_name}
   action:
     new: Nouvelle publication
     edit: Modifier
@@ -22,4 +22,13 @@ post:
 category:
   flash:
     error:
-      not_found: Catégorie "%id%" introuvable
+      not_found: Catégorie "{id}" introuvable
+
+demo:
+  select: >-
+    {organizer_gender, select,
+      female   {{organizer_name} has invited you to her party!}
+      male     {{organizer_name} has invited you to his party!}
+      multiple {{organizer_name} have invited you to their party!}
+      other    {{organizer_name} has invited you to their party!}
+    }

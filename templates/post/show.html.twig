@@ -6,6 +6,7 @@
         Créé le {{ post.createdAt | date }} par {{ post.author.username }} ({{ post.category.name | default('sans catégorie') }})
         <br><a href="{{ path('app_author_post_edit', {id: post.id}) }}">{{ 'post.action.edit' | trans }}</a>
     </p>
+    <p>{{ 'demo.select' | trans({'organizer_gender': 'female', 'organizer_name': 'John'}) }}</p>
     <div class="post-body">
         {{ post.body | raw }}
     </div>
