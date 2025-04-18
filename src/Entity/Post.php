@@ -46,6 +46,9 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $etag = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -136,6 +139,18 @@ class Post
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getEtag(): ?string
+    {
+        return $this->etag;
+    }
+
+    public function setEtag(?string $etag): static
+    {
+        $this->etag = $etag;
 
         return $this;
     }

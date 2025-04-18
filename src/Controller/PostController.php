@@ -67,13 +67,25 @@ class PostController extends AbstractController
     }
 
     #[Route('/post-{id}', requirements: ['id'=>'\d+'], methods: 'GET')]
-    public function show(Post $post): Response {
+    public function show(
+        Post $post,
+        Request $request,
+    ): Response {
+        $etag = $post->getEtag() ?? md5($post->getTitle().$post->getBody());
+        $response = new Response();
+        $response->setEtag($etag);
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         // Résolution automatique de l'argument, car :
         // * de type Entité Doctrine
         // * le paramètre à convertir est "id"
         // Dans les autres cas, utiliser #[MapEntity(...)]
-        return $this->render('post/show.html.twig', [
+        $response->setContent($this->renderView('post/show.html.twig', [
             'post' => $post,
-        ]);
+        ]));
+
+        return $response;
     }
 }
